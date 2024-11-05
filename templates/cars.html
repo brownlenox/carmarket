@@ -58,7 +58,7 @@
               </div>
             {% endfor %}
           {% else %}
-            <p>No cars found matching your search.</p>
+            <p class="no-results-message">No cars found matching your search.</p>
           {% endif %}
         </div>
       </div>
@@ -74,6 +74,7 @@
                   
                   
                   
+                  
                   &search_query={{ search_query }}
                 {% endif %}">
                 First
@@ -81,6 +82,7 @@
             </li>
             <li>
               <a href="?page={{ cars.previous_page_number }}{% if search_query %}
+                  
                   
                   
                   
@@ -105,6 +107,7 @@
                   
                   
                   
+                  
                   &search_query={{ search_query }}
                 {% endif %}">
                 Next
@@ -112,6 +115,7 @@
             </li>
             <li>
               <a href="?page={{ cars.paginator.num_pages }}{% if search_query %}
+                  
                   
                   
                   
