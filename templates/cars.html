@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block title %}
+  Cars
+{% endblock %}
+
+{% block content %}
+  <!-- featured-cars start -->
+  <section id="featured-cars" class="featured-cars">
+    <div class="container">
+      <div class="section-header">
+        <p>
+          {% if search_query %}
+            Results for "{{ search_query }}":
+          {% else %}
+            Checkout <span>the</span> available cars
+          {% endif %}
+        </p>
+        <h2>Available cars</h2>
+      </div>
+
+      <!-- Search Form -->
+      <form method="GET" action="{% url 'search_cars' %}" class="search-form">
+        <input type="text" name="search_query" value="{{ search_query }}" placeholder="Search for a car model, type, or other details..." class="search-input" required />
+        <button type="submit" class="search-btn"><i class="fa fa-search"></i> Search</button>
+
+        <!-- Clear Button -->
+        {% if search_query %}
+          <a href="{% url 'search_cars' %}" class="clear-btn">Clear</a>
+        {% endif %}
+      </form>
+      <!-- /.search-form -->
+
+      <div class="featured-cars-content">
+        <div class="row">
+          {% if cars %}
+            {% for car in cars %}
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="single-featured-cars mb-3">
+                  <div class="featured-img-box">
+                    <div class="featured-cars-img">
+                      <img src="{{ car.image.url }}" alt="{{ car.name }}" />
+                    </div>
+                    <div class="featured-model-info">
+                      <p>Model: {{ car.model }}</p>
+                      <p>Type: {{ car.car_type }}</p>
+                      <p>Phone: {{ car.seller_phone }}</p>
+                    </div>
+                  </div>
+                  <div class="featured-cars-txt">
+                    <h2><a href="#">Name: {{ car.name }}</a></h2>
+                    <h3>Price: Ksh. {{ car.price|intcomma }}</h3>
+                    <p>About: {{ car.about|truncatechars:50 }}</p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>No cars found matching your search.</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="pagination">
+        <ul class="pagination-list">
+          {% if cars.has_previous %}
+            <li>
+              <a href="?page=1{% if search_query %}
+                  
+                  
+                  
+                  
+                  
+                  
+                  &search_query={{ search_query }}
+                {% endif %}">
+                First
+              </a>
+            </li>
+            <li>
+              <a href="?page={{ cars.previous_page_number }}{% if search_query %}
+                  
+                  
+                  
+                  
+                  
+                  
+                  &search_query={{ search_query }}
+                {% endif %}">
+                Previous
+              </a>
+            </li>
+          {% endif %}
+
+          <li>Page {{ cars.number }} of {{ cars.paginator.num_pages }}</li>
+
+          {% if cars.has_next %}
+            <li>
+              <a href="?page={{ cars.next_page_number }}{% if search_query %}
+                  
+                  
+                  
+                  
+                  
+                  
+                  &search_query={{ search_query }}
+                {% endif %}">
+                Next
+              </a>
+            </li>
+            <li>
+              <a href="?page={{ cars.paginator.num_pages }}{% if search_query %}
+                  
+                  
+                  
+                  
+                  
+                  
+                  &search_query={{ search_query }}
+                {% endif %}">
+                Last
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- /.featured-cars -->
+  <!-- featured-cars end -->
+
+  <!-- brand strat -->
+  <section id="brand" class="brand">
+    <div class="container">
+      <div class="brand-area">
+        <div class="owl-carousel owl-theme brand-item">
+          <div class="item">
+            <a href="#"><img src="{% static 'assets/images/brand/br1.png' %}" alt="brand-image" /></a>
+          </div>
+          <!-- /.item -->
+          <div class="item">
+            <a href="#"><img src="{% static 'assets/images/brand/br2.png' %}" alt="brand-image" /></a>
+          </div>
+          <!-- /.item -->
+          <div class="item">
+            <a href="#"><img src="{% static 'assets/images/brand/br3.png' %}" alt="brand-image" /></a>
+          </div>
+          <!-- /.item -->
+          <div class="item">
+            <a href="#"><img src="{% static 'assets/images/brand/br4.png' %}" alt="brand-image" /></a>
+          </div>
+          <!-- /.item -->
+
+          <div class="item">
+            <a href="#"><img src="{% static 'assets/images/brand/br5.png' %}" alt="brand-image" /></a>
+          </div>
+          <!-- /.item -->
+
+          <div class="item">
+            <a href="#"><img src="{% static 'assets/images/brand/br6.png' %}" alt="brand-image" /></a>
+          </div>
+          <!-- /.item -->
+        </div>
+        <!-- /.owl-carousel -->
+      </div>
+      <!-- /.clients-area -->
+    </div>
+    <!-- /.container -->
+  </section>
+  <!-- /brand -->
+  <!-- brand end -->
+{% endblock %}
